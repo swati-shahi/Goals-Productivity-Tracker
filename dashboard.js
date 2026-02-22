@@ -1,3 +1,5 @@
+let chart;
+
 function initDashboard() {
     checkAuth();
 
@@ -7,11 +9,14 @@ function initDashboard() {
 
     loadTasks();
     updateAnalytics();
+    createChart();
 }
 
 function addTask() {
     const taskInput = document.getElementById("taskInput");
     const category = document.getElementById("categorySelect").value;
+    const dueDate = document.getElementById("dueDate").value;
+    const priority = document.getElementById("prioritySelect").value;
 
     if (!taskInput.value) return;
 
@@ -19,7 +24,9 @@ function addTask() {
 
     tasks.push({
         text: taskInput.value,
-        category: category,
+        category,
+        dueDate,
+        priority,
         completed: false,
         date: new Date().toISOString()
     });
@@ -29,27 +36,32 @@ function addTask() {
 
     loadTasks();
     updateAnalytics();
+    createChart();
 }
 
-function loadTasks() {
+function loadTasks(filteredCategory = "All") {
     const taskList = document.getElementById("taskList");
     taskList.innerHTML = "";
 
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    if (filteredCategory !== "All") {
+        tasks = tasks.filter(task => task.category === filteredCategory);
+    }
 
     tasks.forEach((task, index) => {
         const li = document.createElement("li");
         li.className = task.completed ? "completed-task" : "";
 
         li.innerHTML = `
-            <div class="task-info">
+            <div>
                 <strong>${task.text}</strong>
-                <span class="category">${task.category}</span>
+                <br>
+                <small>${task.category} | ${task.priority} | Due: ${task.dueDate || "N/A"}</small>
             </div>
 
-            <div class="task-actions">
+            <div>
                 <button onclick="toggleComplete(${index})">✔</button>
-                <button onclick="editTask(${index})">✏</button>
                 <button onclick="deleteTask(${index})">❌</button>
             </div>
         `;
@@ -58,23 +70,19 @@ function loadTasks() {
     });
 }
 
+function filterTasks() {
+    const selected = document.getElementById("filterSelect").value;
+    loadTasks(selected);
+}
+
 function toggleComplete(index) {
     const tasks = JSON.parse(localStorage.getItem("tasks"));
     tasks[index].completed = !tasks[index].completed;
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
     loadTasks();
-}
-
-function editTask(index) {
-    const tasks = JSON.parse(localStorage.getItem("tasks"));
-    const newText = prompt("Edit task:", tasks[index].text);
-
-    if (newText !== null) {
-        tasks[index].text = newText;
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        loadTasks();
-    }
+    updateAnalytics();
+    createChart();
 }
 
 function deleteTask(index) {
@@ -84,24 +92,41 @@ function deleteTask(index) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     loadTasks();
     updateAnalytics();
+    createChart();
 }
 
 function updateAnalytics() {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const completed = tasks.filter(task => task.completed).length;
 
-    const today = new Date();
-    let daily = 0, weekly = 0, monthly = 0;
+    document.getElementById("dailyCount").innerText = tasks.length;
+    document.getElementById("weeklyCount").innerText = completed;
+    document.getElementById("monthlyCount").innerText =
+        tasks.length > 0 ? Math.round((completed / tasks.length) * 100) + "%" : "0%";
+}
 
-    tasks.forEach(task => {
-        const taskDate = new Date(task.date);
-        const diffDays = (today - taskDate) / (1000 * 60 * 60 * 24);
+function createChart() {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-        if (diffDays <= 1) daily++;
-        if (diffDays <= 7) weekly++;
-        if (diffDays <= 30) monthly++;
+    const completed = tasks.filter(task => task.completed).length;
+    const pending = tasks.length - completed;
+
+    const ctx = document.getElementById("progressChart");
+
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Completed", "Pending"],
+            datasets: [{
+                data: [completed, pending],
+                backgroundColor: ["#4CAF50", "#FF5252"]
+            }]
+        }
     });
+}
 
-    document.getElementById("dailyCount").innerText = daily;
-    document.getElementById("weeklyCount").innerText = weekly;
-    document.getElementById("monthlyCount").innerText = monthly;
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
 }

@@ -3,33 +3,41 @@
 <head>
     <title>Dashboard | Boostly</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body onload="initDashboard()">
 
 <header class="navbar">
+
     <div class="nav-left">
         <h2>Boostly</h2>
     </div>
 
     <div class="nav-right">
         <a href="index.html" class="nav-btn home-btn">Home</a>
+        <button onclick="toggleDarkMode()" class="nav-btn">🌙</button>
         <button onclick="logoutUser()" class="nav-btn logout-btn">Logout</button>
     </div>
+
 </header>
 
 <div class="dashboard">
 
+    <!-- Welcome Card -->
     <div class="welcome-card">
         <h3 id="welcomeUser"></h3>
         <p>Let’s make today productive 🚀</p>
     </div>
 
+    <!-- Add Task Section -->
     <div class="task-card">
         <h3>Add New Task</h3>
 
         <input type="text" id="taskInput" placeholder="Enter task">
-        
+
         <select id="categorySelect">
             <option value="Work">Work</option>
             <option value="Study">Study</option>
@@ -37,34 +45,61 @@
             <option value="Fitness">Fitness</option>
         </select>
 
+        <input type="date" id="dueDate">
+
+        <select id="prioritySelect">
+            <option value="Low">Low Priority</option>
+            <option value="Medium">Medium Priority</option>
+            <option value="High">High Priority</option>
+        </select>
+
         <button onclick="addTask()" class="primary-btn">Add Task</button>
     </div>
 
+    <!-- Task List Section -->
     <div class="task-list-card">
         <h3>Your Tasks</h3>
+
+        <!-- Filter Dropdown -->
+        <select id="filterSelect" onchange="filterTasks()">
+            <option value="All">Show All</option>
+            <option value="Work">Work</option>
+            <option value="Study">Study</option>
+            <option value="Personal">Personal</option>
+            <option value="Fitness">Fitness</option>
+        </select>
+
         <ul id="taskList"></ul>
     </div>
 
+    <!-- Analytics Section -->
     <div class="analytics-card">
         <h3>Progress Analytics</h3>
+
         <div class="analytics-box">
             <div>
                 <h4 id="dailyCount">0</h4>
-                <p>Today</p>
+                <p>Total Tasks</p>
             </div>
+
             <div>
                 <h4 id="weeklyCount">0</h4>
-                <p>This Week</p>
+                <p>Completed</p>
             </div>
+
             <div>
-                <h4 id="monthlyCount">0</h4>
-                <p>This Month</p>
+                <h4 id="monthlyCount">0%</h4>
+                <p>Completion %</p>
             </div>
         </div>
+
+        <canvas id="progressChart"></canvas>
+
     </div>
 
 </div>
 
+<!-- Scripts -->
 <script src="auth.js"></script>
 <script src="dashboard.js"></script>
 

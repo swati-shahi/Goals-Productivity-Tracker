@@ -137,4 +137,101 @@ body {
     padding: 20px;
     background: #112240;
     margin-top: 40px;
+
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #162447;
+    color: white;
+}
+
+.nav-btn {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.home-btn {
+    background: #1f4068;
+    color: white;
+}
+
+.logout-btn {
+    background: #e43f5a;
+    color: white;
+}
+
+.dashboard {
+    padding: 40px;
+    display: grid;
+    gap: 30px;
+}
+
+.welcome-card,
+.task-card,
+.task-list-card,
+.analytics-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.primary-btn {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #1f4068;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-top: 10px;
+    background: #f4f4f4;
+    border-radius: 8px;
+}
+
+.category {
+    margin-left: 10px;
+    font-size: 12px;
+    background: #ddd;
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+.task-actions button {
+    margin-left: 5px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.completed-task {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.analytics-box {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
 }

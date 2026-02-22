@@ -235,3 +235,16 @@ li {
     justify-content: space-around;
     margin-top: 20px;
 }
+
+.dark-mode {
+    background: #121212;
+    color: white;
+}
+
+.dark-mode .welcome-card,
+.dark-mode .task-card,
+.dark-mode .task-list-card,
+.dark-mode .analytics-card {
+    background: #1e1e1e;
+    color: white;
+}

@@ -349,3 +349,21 @@ li small {
     background: linear-gradient(135deg, #0f172a, #1e293b);
 }
 
+/* Task Complete Animation */
+@keyframes taskDone {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); background: #d4edda; }
+    100% { transform: scale(1); }
+}
+
+.task-animate {
+    animation: taskDone 0.4s ease;
+}
+
+.completed-task {
+    text-decoration: line-through;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+

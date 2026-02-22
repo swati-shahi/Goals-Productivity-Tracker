@@ -51,6 +51,7 @@ function loginUser(event) {
     }
 }
 
+localStorage.setItem("isLoggedIn", "true");
 
 // -------------------- MESSAGE FUNCTION --------------------
 function showMessage(text, type) {
@@ -74,3 +75,4 @@ function logoutUser() {
     localStorage.removeItem("isLoggedIn");
     window.location.href = "login.html";
 }
+

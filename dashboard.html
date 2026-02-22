@@ -4,29 +4,63 @@
     <title>Dashboard | Boostly</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body onload="initDashboard()">
 
 <header class="navbar">
-    <h2>Boostly Dashboard</h2>
-    <button onclick="logoutUser()">Logout</button>
+    <div class="nav-left">
+        <h2>Boostly</h2>
+    </div>
+
+    <div class="nav-right">
+        <a href="index.html" class="nav-btn home-btn">Home</a>
+        <button onclick="logoutUser()" class="nav-btn logout-btn">Logout</button>
+    </div>
 </header>
 
 <div class="dashboard">
 
-    <h3 id="welcomeUser"></h3>
-
-    <div class="task-section">
-        <input type="text" id="taskInput" placeholder="Enter new task">
-        <button onclick="addTask()">Add Task</button>
+    <div class="welcome-card">
+        <h3 id="welcomeUser"></h3>
+        <p>Let’s make today productive 🚀</p>
     </div>
 
-    <ul id="taskList"></ul>
+    <div class="task-card">
+        <h3>Add New Task</h3>
 
-    <div class="analytics">
+        <input type="text" id="taskInput" placeholder="Enter task">
+        
+        <select id="categorySelect">
+            <option value="Work">Work</option>
+            <option value="Study">Study</option>
+            <option value="Personal">Personal</option>
+            <option value="Fitness">Fitness</option>
+        </select>
+
+        <button onclick="addTask()" class="primary-btn">Add Task</button>
+    </div>
+
+    <div class="task-list-card">
+        <h3>Your Tasks</h3>
+        <ul id="taskList"></ul>
+    </div>
+
+    <div class="analytics-card">
         <h3>Progress Analytics</h3>
-        <p>Today: <span id="dailyCount">0</span> tasks</p>
-        <p>This Week: <span id="weeklyCount">0</span> tasks</p>
-        <p>This Month: <span id="monthlyCount">0</span> tasks</p>
+        <div class="analytics-box">
+            <div>
+                <h4 id="dailyCount">0</h4>
+                <p>Today</p>
+            </div>
+            <div>
+                <h4 id="weeklyCount">0</h4>
+                <p>This Week</p>
+            </div>
+            <div>
+                <h4 id="monthlyCount">0</h4>
+                <p>This Month</p>
+            </div>
+        </div>
     </div>
 
 </div>

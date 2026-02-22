@@ -123,6 +123,10 @@ function createChart() {
                 data: [completed, pending],
                 backgroundColor: ["#4CAF50", "#FF5252"]
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
         }
     });
 }
@@ -130,3 +134,4 @@ function createChart() {
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
 }
+

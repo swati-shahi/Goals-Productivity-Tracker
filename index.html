@@ -8,9 +8,8 @@
 
 <header class="navbar">
     <h2>Boostly</h2>
-    <div class="nav-right">
-        <a href="login.html" class="nav-btn home-btn">Login</a>
-        <a href="signup.html" class="nav-btn logout-btn">Sign Up</a>
+    <div class="nav-right" id="navLinks">
+        <!-- JS will insert buttons here -->
     </div>
 </header>
 
@@ -63,9 +62,29 @@
 <footer class="footer">
     <p>© 2026 Boostly. All rights reserved.</p>
 </footer>
+<script>
+const navLinks = document.getElementById("navLinks");
 
+if (localStorage.getItem("isLoggedIn")) {
+    navLinks.innerHTML = `
+        <a href="dashboard.html" class="nav-btn home-btn">Dashboard</a>
+        <a href="#" class="nav-btn logout-btn" onclick="logout()">Logout</a>
+    `;
+} else {
+    navLinks.innerHTML = `
+        <a href="login.html" class="nav-btn home-btn">Login</a>
+        <a href="signup.html" class="nav-btn logout-btn">Sign Up</a>
+    `;
+}
+
+function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.reload();
+}
+</script>
 </body>
 </html>
+
 
 
 

@@ -1,4 +1,4 @@
-/* RESET */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
@@ -6,14 +6,13 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* BODY */
 body {
     background: #f4f6fa;
     color: #1a1a1a;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -29,18 +28,15 @@ body {
 
 .nav-right {
     display: flex;
-    align-items: center;
     gap: 12px;
 }
 
 .nav-btn {
-    padding: 8px 14px;
+    padding: 8px 16px;
     border-radius: 8px;
-    border: none;
-    cursor: pointer;
+    text-decoration: none;
     font-weight: 600;
     transition: 0.3s;
-    text-decoration: none;
 }
 
 .home-btn {
@@ -57,7 +53,70 @@ body {
     transform: translateY(-2px);
 }
 
-/* AUTH PAGES (LOGIN + SIGNUP) */
+/* ================= HERO SECTION ================= */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #1f4068, #3f72af);
+    color: white;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.cta-btn {
+    padding: 12px 25px;
+    background: white;
+    color: #1f4068;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background: #e3f2fd;
+}
+
+/* ================= FEATURES & STEPS ================= */
+.features,
+.how-it-works {
+    padding: 70px 60px;
+    text-align: center;
+}
+
+.card-container,
+.steps {
+    margin-top: 40px;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card,
+.step {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    width: 280px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.card:hover,
+.step:hover {
+    transform: translateY(-5px);
+}
+
+/* ================= AUTH (LOGIN/SIGNUP) ================= */
 .auth-container {
     display: flex;
     justify-content: center;
@@ -93,13 +152,14 @@ body {
     background: #1f4068;
     color: white;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .auth-box button:hover {
     background: #16345a;
 }
 
-/* DASHBOARD GRID */
+/* ================= DASHBOARD ================= */
 .dashboard {
     padding: 40px 60px;
     display: grid;
@@ -107,7 +167,7 @@ body {
     gap: 25px;
 }
 
-/* CARD STYLE */
+/* Dashboard Cards */
 .welcome-card,
 .task-card,
 .task-list-card,
@@ -137,13 +197,14 @@ body {
     border-radius: 8px;
     border: none;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .primary-btn:hover {
     background: #16345a;
 }
 
-/* TASK LIST */
+/* ================= TASK LIST ================= */
 ul {
     list-style: none;
     margin-top: 15px;
@@ -168,7 +229,7 @@ li small {
     opacity: 0.6;
 }
 
-/* ANALYTICS */
+/* ================= ANALYTICS ================= */
 .analytics-box {
     display: flex;
     justify-content: space-between;
@@ -184,14 +245,26 @@ li small {
     color: #1f4068;
 }
 
-.analytics-card canvas {
-    max-width: 300px;
-    max-height: 300px;
-    margin: auto;
-    display: block;
+/* Controlled Graph Size */
+.analytics-card {
+    max-height: 420px;
 }
 
-/* DARK MODE */
+.analytics-card canvas {
+    width: 100% !important;
+    height: 250px !important;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    margin-top: 50px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+/* ================= DARK MODE ================= */
 .dark-mode {
     background: #0f172a;
     color: #f1f5f9;
@@ -201,11 +274,18 @@ li small {
     background: #1e293b;
 }
 
+.dark-mode .hero {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+.dark-mode .card,
+.dark-mode .step,
 .dark-mode .welcome-card,
 .dark-mode .task-card,
 .dark-mode .task-list-card,
 .dark-mode .analytics-card,
-.dark-mode .auth-box {
+.dark-mode .auth-box,
+.dark-mode .footer {
     background: #1e293b;
     color: #f1f5f9;
 }
@@ -219,4 +299,9 @@ li small {
     background: #334155;
     color: white;
     border: 1px solid #475569;
+}
+
+.dark-mode .cta-btn {
+    background: #334155;
+    color: #f1f5f9;
 }

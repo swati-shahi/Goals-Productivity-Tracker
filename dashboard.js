@@ -95,6 +95,17 @@ function toggleComplete(index) {
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
+    // Add animation
+    const taskList = document.getElementById("taskList");
+    const item = taskList.children[index];
+
+    if (item) {
+        item.classList.add("task-animate");
+        setTimeout(() => {
+            item.classList.remove("task-animate");
+        }, 400);
+    }
+
     refreshDashboard();
 }
 
@@ -114,6 +125,7 @@ function refreshDashboard() {
     loadTasks();
     updateAnalytics();
     updateWelcomeStats();
+    updateStreak();
     createChart();
 }
 
@@ -146,6 +158,42 @@ function updateWelcomeStats() {
     if (totalEl) totalEl.innerText = total;
     if (completedEl) completedEl.innerText = completed;
     if (pendingEl) pendingEl.innerText = pending;
+}
+
+/* ================= DAILY STREAK ================= */
+function updateStreak() {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const today = new Date().toDateString();
+
+    const completedToday = tasks.some(task =>
+        task.completed &&
+        new Date(task.date).toDateString() === today
+    );
+
+    let streakData = JSON.parse(localStorage.getItem("streakData")) || {
+        streak: 0,
+        lastDate: null
+    };
+
+    if (completedToday) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        if (streakData.lastDate === yesterday.toDateString()) {
+            streakData.streak += 1;
+        } else if (streakData.lastDate !== today) {
+            streakData.streak = 1;
+        }
+
+        streakData.lastDate = today;
+    }
+
+    localStorage.setItem("streakData", JSON.stringify(streakData));
+
+    const streakElement = document.getElementById("streakCount");
+    if (streakElement) {
+        streakElement.innerText = streakData.streak;
+    }
 }
 
 /* ================= CHART ================= */
@@ -181,3 +229,4 @@ function createChart() {
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
 }
+
